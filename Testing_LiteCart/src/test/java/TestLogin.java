@@ -7,24 +7,33 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class TestLogin {
     private WebDriver driver;
-    //private WebDriverWait wait;
+    private WebDriverWait wait;
+
 
     @BeforeTest
     public void start() {
         driver = new ChromeDriver();
-        //wait = new WebDriverWait(driver, 100);
+        wait = new WebDriverWait(driver, 100);
     }
 
     @Test
     public void trytest() {
         driver.get("http://localhost/litecart/public_html/en/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        Set<String> handles = driver.getWindowHandles();
+        //Set<String> handle = driver.getWindowHandles();
+
+        //driver.getWindowHandle()
+        driver.switchTo().window(handles.toArray(new String[0])[0]);
+        driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+        //driver.findElement(By.name("email")).sendKeys("Ctrl+F4");
         driver.findElement(By.name("email")).sendKeys("testortttt@mail.ru");
         driver.findElement(By.name("password")).sendKeys("12345678");
         driver.findElement(By.name("login")).click();
