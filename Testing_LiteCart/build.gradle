@@ -12,4 +12,5 @@ repositories {
 dependencies {
     compile 'org.testng:testng:6.11'
     compile 'org.seleniumhq.selenium:selenium-java:3.3.1'
+    compile 'org.webjars.npm:jquery:3.2.1'
 }
