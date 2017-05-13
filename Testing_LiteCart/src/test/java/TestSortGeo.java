@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,6 +30,19 @@ public class TestSortGeo {
         wait = new WebDriverWait(driverChrome, 10);
     }
 
+    boolean areElementsSortedABC(List<String> listItems) {
+        List<String> listItemsDop = Lists.newArrayList();
+
+        listItemsDop.addAll(listItems);
+
+        Arrays.sort(new List[]{listItemsDop});
+        if (listItems.equals(listItemsDop)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Test
     public void test() {
         driverChrome.get("http://localhost/litecart/admin/");
@@ -42,47 +56,47 @@ public class TestSortGeo {
 
         //WebElement table = driverChrome.findElement(By.cssSelector("[class^='table'] tbody"));
         WebElement table = driverChrome.findElement(By.xpath("//*[@id=\'main\']/form/table/tbody"));
-        List<WebElement> cells;
         List<WebElement> rows = table.findElements(By.tagName("tr"));
-        List<String> itemsCountries1 = Lists.newArrayList();
-        List<String> itemsCountries2 = Lists.newArrayList();
+        List<WebElement> cells;
+        List<String> listItems = Lists.newArrayList();
+        List<String> listCountriesWithZones = Lists.newArrayList();
 
         for (WebElement row : rows) {
             cells = row.findElements(By.tagName("td"));
-            itemsCountries1.add(cells.get(4).getText());
-            itemsCountries2.add(cells.get(4).getText());
+            listItems.add(cells.get(4).getText());
+
+            if (Integer.parseInt(cells.get(5).getText())>0) {
+                listCountriesWithZones.add(cells.get(4).getText());
+                //System.out.println(cells.get(4).getText());
+            }
         }
 
-        //System.out.println(itemsCountries.size());
-        Arrays.sort(new List[]{itemsCountries2});
-        if (itemsCountries1.equals(itemsCountries2)) {
-            System.out.println("Страны отсортированы в алфавитном порядке");
-        } else {System.out.println("Страны отсортированы не в алфавитном порядке");}
+        if (areElementsSortedABC(listItems))
+            {System.out.println("Стран: " +rows.size() +". Отсортированы в алфавитном порядке.");}
+            else {System.out.println("Стран: " +rows.size() +". Отсортированы не в алфавитном порядке.");}
 
-        /*
-        WebElement dopElement;
-        //WebElement submenuElement;
-        List<String> itemsCountries = Lists.newArrayList();
-        //List<String> submenuItems = Lists.newArrayList();
+        for (String item : listCountriesWithZones){
+            driverChrome.findElement(By.linkText(item)).click();
+            rows = driverChrome.findElements(By.cssSelector("table tbody tr"));
+            //System.out.println(rows.size());
+            listItems.clear();
+            for (WebElement row : rows) {
+                cells = row.findElements(By.tagName("td"));
+                // System.out.println(cells.get(2).findElement(By.tagName("input")).getAttribute("value"))
+                listItems.add(cells.get(2).findElement(By.tagName("input")).getAttribute("value"));
+                 }
 
-        List<WebElement> listCountries = driverChrome.findElements(By.cssSelector("tbody td a:not(title)"));
+            if (areElementsSortedABC(listItems))
+            {System.out.println(item +", зон: "+ rows.size() + ". Зоны отсортированы в алфавитном порядке");}
+            else {System.out.println(item +", зон: "+ rows.size() + ". Зоны отсортированы в алфавитном порядке");}
 
-        for (WebElement aCountry : listCountries) {
-            itemsCountries.add(aCountry.getText());
-           // System.out.println(aCountry.getText());
+            driverChrome.findElement(By.cssSelector("button[name='cancel']")).click();
         }
-        System.out.println(listCountries.size());*/
-
-        /*for (String menuItem : menuItems) {
-            dopElement = driverChrome.findElement(By.linkText(menuItem));
-            dopElement.click();
-        }*/
-
     }
 
-  /*  @AfterTest
+    @AfterTest
     public void stop() {
         driverChrome.quit();
         driverChrome = null;
-    }*/
+    }
 }
