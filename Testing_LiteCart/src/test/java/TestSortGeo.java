@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Integer.parseInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 /**
@@ -29,6 +30,48 @@ public class TestSortGeo {
         driverChrome.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wait = new WebDriverWait(driverChrome, 10);
     }
+
+    List<String> getListCountriesOrZones(String nameColumnCounriesOrZones, boolean withZones){
+        List<String> listItems = Lists.newArrayList();
+        int iName = -1, iZones = -1;
+
+        List<WebElement> ths = driverChrome.findElements(By.cssSelector("table thead tr th"));
+        for (WebElement th : ths) {
+            if (th.getText().equals(nameColumnCounriesOrZones)) {  //Name or Zone
+                iName = parseInt(th.getAttribute("cellIndex"));
+            }
+            if (th.getAttribute("textContent").equals("Zones")) {
+            //if (th.getText().equals("Zones")) {
+                iZones = parseInt(th.getAttribute("cellIndex"));
+            }
+        }
+
+        List<WebElement> rows = driverChrome.findElements(By.cssSelector("table tbody tr"));
+        List<WebElement> cells;
+
+        if (!withZones) {
+            for (WebElement row : rows) {
+                cells = row.findElements(By.tagName("td"));
+
+                if (!cells.get(iName).getText().isEmpty()) {
+                    listItems.add(cells.get(iName).getText());
+                }
+                    else {
+                    listItems.add(cells.get(iName).findElement(By.tagName("input")).getAttribute("value"));
+                }
+            }
+        }
+            else {
+            for (WebElement row : rows) {
+                cells = row.findElements(By.tagName("td"));
+
+                if (parseInt(cells.get(iZones).getText()) > 0) {
+                    listItems.add(cells.get(iName).getText());
+                }
+            }
+        }
+        return listItems;
+        }
 
     boolean areElementsSortedABC(List<String> listItems) {
         List<String> listItemsDop = Lists.newArrayList();
@@ -52,43 +95,44 @@ public class TestSortGeo {
         driverChrome.findElement(By.xpath("//*[@id=\"box-login\"]/form/div[2]/button")).click();
         wait.until(titleIs("My Store"));
 
+        List<String> listItems = Lists.newArrayList();
+
+        System.out.println("Countries");
         driverChrome.findElement(By.linkText("Countries")).click();
 
-        //WebElement table = driverChrome.findElement(By.cssSelector("[class^='table'] tbody"));
-        WebElement table = driverChrome.findElement(By.xpath("//*[@id=\'main\']/form/table/tbody"));
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
-        List<WebElement> cells;
-        List<String> listItems = Lists.newArrayList();
-        List<String> listCountriesWithZones = Lists.newArrayList();
-
-        for (WebElement row : rows) {
-            cells = row.findElements(By.tagName("td"));
-            listItems.add(cells.get(4).getText());
-
-            if (Integer.parseInt(cells.get(5).getText())>0) {
-                listCountriesWithZones.add(cells.get(4).getText());
-                //System.out.println(cells.get(4).getText());
-            }
-        }
+        listItems = getListCountriesOrZones("Name", false);
 
         if (areElementsSortedABC(listItems))
-            {System.out.println("Стран: " +rows.size() +". Отсортированы в алфавитном порядке.");}
-            else {System.out.println("Стран: " +rows.size() +". Отсортированы не в алфавитном порядке.");}
+            {System.out.println("Стран: " +listItems.size() +". Отсортированы в алфавитном порядке.");}
+            else {System.out.println("Стран: " +listItems.size() +". Отсортированы не в алфавитном порядке.");}
+
+        List<String> listCountriesWithZones = getListCountriesOrZones("Name", true);
 
         for (String item : listCountriesWithZones){
             driverChrome.findElement(By.linkText(item)).click();
-            rows = driverChrome.findElements(By.cssSelector("table tbody tr"));
-            //System.out.println(rows.size());
-            listItems.clear();
-            for (WebElement row : rows) {
-                cells = row.findElements(By.tagName("td"));
-                // System.out.println(cells.get(2).findElement(By.tagName("input")).getAttribute("value"))
-                listItems.add(cells.get(2).findElement(By.tagName("input")).getAttribute("value"));
-                 }
+
+            listItems = getListCountriesOrZones("Name", false);
 
             if (areElementsSortedABC(listItems))
-            {System.out.println(item +", зон: "+ rows.size() + ". Зоны отсортированы в алфавитном порядке");}
-            else {System.out.println(item +", зон: "+ rows.size() + ". Зоны отсортированы в алфавитном порядке");}
+            {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
+            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
+
+            driverChrome.findElement(By.cssSelector("button[name='cancel']")).click();
+        }
+
+        System.out.println("Geo Zones");
+        driverChrome.findElement(By.linkText("Geo Zones")).click();
+
+        listCountriesWithZones = getListCountriesOrZones("Name", true);
+
+        for (String item : listCountriesWithZones){
+            driverChrome.findElement(By.linkText(item)).click();
+
+            listItems = getListCountriesOrZones("Zone", false);
+
+            if (areElementsSortedABC(listItems))
+            {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
+            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
 
             driverChrome.findElement(By.cssSelector("button[name='cancel']")).click();
         }
