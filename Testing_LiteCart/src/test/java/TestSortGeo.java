@@ -115,7 +115,7 @@ public class TestSortGeo {
 
             if (areElementsSortedABC(listItems))
             {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
-            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
+            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы НЕ в алфавитном порядке");}
 
             driverChrome.findElement(By.cssSelector("button[name='cancel']")).click();
         }
@@ -132,7 +132,7 @@ public class TestSortGeo {
 
             if (areElementsSortedABC(listItems))
             {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
-            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы в алфавитном порядке");}
+            else {System.out.println(item +", зон: "+ listItems.size() + ". Зоны отсортированы НЕ в алфавитном порядке");}
 
             driverChrome.findElement(By.cssSelector("button[name='cancel']")).click();
         }
