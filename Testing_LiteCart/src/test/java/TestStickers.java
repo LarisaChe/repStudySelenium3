@@ -37,14 +37,14 @@ public class TestStickers {
 
         List<WebElement> stickerElements;
 
-        List<WebElement> duckElements = driverChrome.findElements(By.cssSelector("div[class='col-xs-halfs col-sm-thirds col-md-fourths col-lg-fifths']"));
+        List<WebElement> duckElements = driverChrome.findElements(By.className("product"));
 
         if (duckElements.size() > 0) {
             System.out.println("Найдено товаров: " + Integer.toString(duckElements.size()));
 
             for (WebElement dElement : duckElements) {
 
-                stickerElements = dElement.findElements(By.cssSelector("[class^='sticker']"));
+                stickerElements = dElement.findElements(By.cssSelector(".sticker"));
 
                 switch (stickerElements.size()) {
                     case 1:
