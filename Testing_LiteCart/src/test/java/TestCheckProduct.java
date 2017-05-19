@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -20,96 +21,159 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
  *  Задание 10. Проверить, что открывается правильная страница товара
  */
 public class TestCheckProduct {
-    private WebDriver driverChrome;
-    private WebDriverWait wait;
-    private WebDriver firefoxDriver;
+
+    //private WebDriverWait wait;
+    //private WebDriver driver;
+   /* private WebDriver driverChrome;
     private WebDriver driverIE;
+    private WebDriver driverFF;
 
-    @BeforeTest
+    private String[] driverTypes = {"Chrome", "IE", "FF"};
+    private String driverType = "Chrome";*/
+
+   /* @BeforeTest
     public void start() {
-//        driverChrome = new ChromeDriver();
+        //System.out.println(driverType);
+            /*switch (driverType) {
+                case "Chrome":
+                    driver = new ChromeDriver();
+                case "FF":
+                    driver = new FirefoxDriver();
+                case "IE":
+                    driver = new InternetExplorerDriver();
+            }*/
 
-        //firefoxDriver = new FirefoxDriver();
+       /*     driverChrome = new ChromeDriver();
+            driverFF = new FirefoxDriver();
+            driverIE = new InternetExplorerDriver();
 
-        driverChrome = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 10);
 
-        driverChrome.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driverChrome, 10);
-    }
+//        System.out.println(driver.toString());
+    }*/
 
-    float floatFontSize (String strFont) {
-        String fontDop = strFont.substring(0, strFont.length()-2);
+    float floatFontSize(String strFont) {
+        String fontDop = strFont.substring(0, strFont.length() - 2);
         return parseFloat(fontDop);
     }
 
-    List<String> getListProductInfo(WebElement element, String classNameForProductName) {
+    String colourName(String colourNumber) {
+        int pos1 = colourNumber.indexOf("(");
+        int pos2 = colourNumber.indexOf(")");
+
+        String[] colourNumbers = (colourNumber.substring(pos1 + 1, pos2)).split(", ");
+        //System.out.println(colourNumbers[0]+" "+colourNumbers[1]+" " +colourNumbers[2]);
+        if ((parseInt(colourNumbers[1]) == 0) && (parseInt(colourNumbers[2]) == 0) && (parseInt(colourNumbers[0]) > 0)) {
+            return "Оттенок красного";
+        } else if ((parseInt(colourNumbers[0]) == parseInt(colourNumbers[1])) && (parseInt(colourNumbers[1]) == parseInt(colourNumbers[2]))) {
+            return "Оттенок серого";
+        } else {
+            System.out.println("Ошибка: неправильный цвет: " + colourNumber);
+            return "Неправильный цвет";
+        }
+    }
+
+    List<String> getListProductInfo(WebDriver driver, WebElement element, String classNameForProductName) {
         List<String> listItems = Lists.newArrayList();
-        //System.out.println("s");
+
+        String textDecoration = "text-decoration";
+        if (driver.toString().substring(0, 12).equals("ChromeDriver")) {
+            textDecoration = "textDecorationLine";
+        }
+
+        String fontSize = "fontSize";
+        if (driver.toString().substring(0, 13).equals("FirefoxDriver")) {
+            fontSize = "font-size";
+        }
+
         listItems.add(element.findElement(By.className(classNameForProductName)).getText());
         listItems.add(element.findElement(By.className("regular-price")).getText());
         listItems.add(element.findElement(By.className("regular-price")).getCssValue("color"));
-        listItems.add(element.findElement(By.className("regular-price")).getCssValue("textDecorationLine"));
-        listItems.add(element.findElement(By.className("regular-price")).getCssValue("fontSize"));
+        listItems.add(colourName(element.findElement(By.className("regular-price")).getCssValue("color")));
+        listItems.add(element.findElement(By.className("regular-price")).getCssValue(textDecoration));
+        //listItems.add(element.findElement(By.className("regular-price")).getCssValue(fontSize));
 
         listItems.add(element.findElement(By.className("campaign-price")).getText());
         listItems.add(element.findElement(By.className("campaign-price")).getCssValue("color"));
-        listItems.add(element.findElement(By.className("campaign-price")).getCssValue("textDecorationLine"));
-        listItems.add(element.findElement(By.className("campaign-price")).getCssValue("fontSize"));
+        listItems.add(colourName(element.findElement(By.className("campaign-price")).getCssValue("color")));
+        listItems.add(element.findElement(By.className("campaign-price")).getCssValue(textDecoration));
+        //listItems.add(element.findElement(By.className("campaign-price")).getCssValue(fontSize));
 
-/*        float sFontR = floatFontSize(element.findElement(By.className("regular-price")).getCssValue("fontSize"));
-        float sFontC = floatFontSize(element.findElement(By.className("campaign-price")).getCssValue("fontSize"));
+        float sFontR = floatFontSize(element.findElement(By.className("regular-price")).getCssValue(fontSize));
+        float sFontC = floatFontSize(element.findElement(By.className("campaign-price")).getCssValue(fontSize));
 
-        if (sFontC>sFontR) {
+        if (sFontC > sFontR) {
             listItems.add("Шрифт campaign-price больше, чем шрифт regular-price.");
         } else {
             System.out.println("Шрифт campaign-price " + Float.toString(sFontC));
-            System.out.println("Шрифта regular-price "+Float.toString(sFontR));
+            System.out.println("Шрифта regular-price " + Float.toString(sFontR));
             System.out.println(" Ошибка: Шрифт campaign-price должен быть больше шрифта regular-price.");
-        }*/
+        }
 
-        for (String item : listItems) {
+        /*for (String item : listItems) {
             System.out.println(item);
         }
-        System.out.println();
-
+        System.out.println();*/
         return listItems;
     }
 
-        @Test
-    public void test() {
-        driverChrome.get("http://localhost/litecart/public_html/en/");
+    @Test
+    public void testCheckProduct(WebDriver driver, WebDriverWait wait) {
 
-        driverChrome.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        wait.until(titleIs("My Store | Online Store"));
-
-        List<WebElement> duckElements = driverChrome.findElements(By.cssSelector("[id='box-campaigns'] a"));
-
-        if (duckElements.size() > 0) {
-            System.out.println("Найдено товаров: " + Integer.toString(duckElements.size()));
-
-            List<String> productDescription1 = getListProductInfo(duckElements.get(0), "name");
-
-            duckElements.get(0).click();
-
-            //duckElements = driverChrome.findElements(By.cssSelector("[id='box-product']"));
-
-            //List<String> productDescription2 = getListProductInfo(duckElements.get(0), "title");
-            List<String> productDescription2 = getListProductInfo(driverChrome.findElement(By.cssSelector("[id='box-product']")), "title");
-
-            if (productDescription1.equals(productDescription2)) {
-                System.out.println("Информация по товару на главной странице и странице товара совпадает.");
-            } else {
-                System.out.println("Информация по товару на главной странице и странице товара не совпадает!");
+        /*for (String dt : driverTypes) {
+                   driverType = dt;
+            switch (driverType) {
+                case "Chrome":
+                    driver = driverChrome;
+                case "FF":
+                    driver = driverFF;
+                case "IE":
+                    driver = driverIE;
             }
+                   System.out.println(driverType);*/
+            System.out.println(driver.toString());
 
-        } else {
-            System.out.println("Ни один товар не найден.");
+            /*switch (driverType) {
+                case "Chrome":
+                    driver = new ChromeDriver();
+                case "FF":
+                    driver = new FirefoxDriver();
+                case "IE":
+                    driver = new InternetExplorerDriver();
+            }*/
+
+            driver.get("http://localhost/litecart/public_html/en/");
+
+            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            wait.until(titleIs("My Store | Online Store"));
+
+            List<WebElement> duckElements = driver.findElements(By.cssSelector("[id='box-campaigns'] a"));
+
+            if (duckElements.size() > 0) {
+                System.out.println("Найдено товаров: " + Integer.toString(duckElements.size()));
+
+                List<String> productDescription1 = getListProductInfo(driver, duckElements.get(0), "name");
+
+                duckElements.get(0).click();
+
+                List<String> productDescription2 = getListProductInfo(driver, driver.findElement(By.cssSelector("[id='box-product']")), "title");
+
+                if (productDescription1.equals(productDescription2)) {
+                    System.out.println("Информация по товару на главной странице и странице товара совпадает.");
+                } else {
+                    System.out.println("Ошибка: Информация по товару на главной странице и странице товара не совпадает!");
+                }
+
+            } else {
+                System.out.println("Ни один товар не найден.");
+            }
         }
-    }
+    //}
 
     /*@AfterTest
     public void stop() {
-        driverChrome.quit();
-        driverChrome = null;
+        driver.quit();
+        driver = null;
     }*/
 }
