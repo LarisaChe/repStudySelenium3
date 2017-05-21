@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -33,40 +34,67 @@ public class TestLogin {
         return (element.isDisplayed() && dopString.equals(alertString));
         }
 
-    void registration() {
-        driver.findElement(By.cssSelector("a[href$='create_account']")).click();
-        WebElement element=driver.findElement(By.id("box-create-account"));
-        for (int i=0; i<=userData.length-1; i++) {
-            element.findElement(By.name(userData[i][0])).sendKeys(userData[i][1]);
+    void registration(int j) {
+        //driver.findElement(By.cssSelector("a[href$='create_account']")).click();
+        List<WebElement> listElements = driver.findElements(By.cssSelector("a[href$='create_account']"));
+        if (listElements.size() > 0) {
+            listElements.get(j).click();
+
+            WebElement element = driver.findElement(By.id("box-create-account"));
+            for (int i = 0; i <= userData.length - 1; i++) {
+                element.findElement(By.name(userData[i][0])).sendKeys(userData[i][1]);
+            }
+            new Select(element.findElement(By.name("country_code"))).selectByVisibleText("United States");
+
+            Random rn = new Random();
+            int stateNum = rn.nextInt(65);
+            WebElement elementState = element.findElement(By.name("zone_code"));
+            wait.until(ExpectedConditions.elementToBeClickable(elementState));
+            Select select = new Select(elementState);
+            select.selectByIndex(stateNum);
+
+            element.findElement(By.name("create_account")).click();
+
+            if (alertCheck("× Your customer account has been created.")) {
+                System.out.println("Зарегистрировались");
+            } else {
+                System.out.println("Не удалось зарегистрироваться");
+            }
+        } else {System.out.println("Не найдено ни одной команды create-account");}
+    }
+
+    void logout (int i) {
+
+        //driver.findElement(By.cssSelector("a[href$='logout']")).click();
+        List<WebElement> listElements = driver.findElements(By.cssSelector("a[href$='logout']"));
+        if (listElements.size() > 0) {
+            listElements.get(i).click();
+
+            if (alertCheck("× You are now logged out.")) {
+                System.out.println("Отлогинились");
+            } else {
+                System.out.println("Не удалось отлогиниться");
+            }
+        } else {System.out.println("Не найдено ни одной команды logout");}
+    }
+
+    void login (int i, String email, String password, String nameForAlert ) {
+        switch (i) {
+            case 0:
+                driver.findElement(By.name("email")).sendKeys(email);
+                driver.findElement(By.name("password")).sendKeys(password);
+                driver.findElement(By.name("login")).click();
+                break;
+            case 1:
+                driver.findElement(By.cssSelector("a[href$='login']")).click();
+                WebElement element=driver.findElement(By.className("box-login"));
+                element.findElement(By.name("email")).sendKeys(email);
+                element.findElement(By.name("password")).sendKeys(password);
+                element.findElement(By.name("login")).click();
+                break;
+            default:
+                System.out.println("Всего два варианта залогиниться. Другого нет.");
         }
-        new Select(element.findElement(By.name("country_code"))).selectByVisibleText("United States");
-
-        Random rn = new Random();
-        int stateNum = rn.nextInt(65);
-        WebElement elementState = element.findElement(By.name("zone_code"));
-        wait.until(ExpectedConditions.elementToBeClickable(elementState));
-        Select select = new Select(elementState);
-        select.selectByIndex(stateNum);
-
-        element.findElement(By.name("create_account")).click();
-
-        if (alertCheck("× Your customer account has been created.")) {
-            System.out.println("Зарегистрировались");
-        } else {System.out.println("Не удалось зарегистрироваться");}
-    }
-
-    void logout () {
-        driver.findElement(By.cssSelector("a[href$='logout']")).click();
-
-        if (alertCheck("× You are now logged out.")) {
-            System.out.println("Отлогинились");
-        } else {System.out.println("Не удалось отлогиниться");}
-    }
-
-    void login (String email, String password, String nameForAlert ) {
-        driver.findElement(By.name("email")).sendKeys(email);
-        driver.findElement(By.name("password")).sendKeys(password);
-        driver.findElement(By.name("login")).click();
 
         if (alertCheck("× You are now logged in as "+nameForAlert+".")) {
             System.out.println("Залогинились");
@@ -83,45 +111,48 @@ public class TestLogin {
     public void test() {
         driver.get("http://localhost/litecart/public_html/en/");
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        String dopString = String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS", LocalDateTime.now());
-        //System.out.println(dopString);
-        userData[0][0]="firstname";
-        userData[0][1]="n"+dopString;
-        userData[1][0]="lastname";
-        userData[1][1]="sn"+dopString;
-        userData[2][0]="address1";
-        userData[2][1]="st "+dopString;
-        userData[3][0]="postcode";
-        userData[3][1]=dopString.substring(9);
-        userData[4][0]="email";
-        userData[4][1]="e"+dopString+"@testmail.com";
-        userData[5][0]="password";
-        userData[5][1] = "p"+dopString;
-        userData[6][0]="confirmed_password";
-        userData[6][1] = "p"+dopString;
-        userData[7][0]="tax_id";
-        userData[7][1]=dopString.substring(7);
-        userData[8][0]="company";
-        userData[8][1] = "company"+dopString.substring(11);
-        userData[9][0]="city";
-        userData[9][1] = "city"+dopString.substring(12);
-        userData[10][0]="phone";
-        userData[10][1] = "+1"+dopString.substring(8);
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Вариант № "+String.valueOf(i+1));
+            String dopString = String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS", LocalDateTime.now());
+            //System.out.println(dopString);
+            userData[0][0] = "firstname";
+            userData[0][1] = "n" + dopString;
+            userData[1][0] = "lastname";
+            userData[1][1] = "sn" + dopString;
+            userData[2][0] = "address1";
+            userData[2][1] = "st " + dopString;
+            userData[3][0] = "postcode";
+            userData[3][1] = dopString.substring(9);
+            userData[4][0] = "email";
+            userData[4][1] = "e" + dopString + "@testmail.com";
+            userData[5][0] = "password";
+            userData[5][1] = "p" + dopString;
+            userData[6][0] = "confirmed_password";
+            userData[6][1] = "p" + dopString;
+            userData[7][0] = "tax_id";
+            userData[7][1] = dopString.substring(7);
+            userData[8][0] = "company";
+            userData[8][1] = "company" + dopString.substring(11);
+            userData[9][0] = "city";
+            userData[9][1] = "city" + dopString.substring(12);
+            userData[10][0] = "phone";
+            userData[10][1] = "+1" + dopString.substring(8);
 
         /*for (int i=0; i<=6; i++) {
             System.out.println(userData[i][0]);
             System.out.println(userData[i][1]);
         }*/
 
-        registration();
+            registration(i);
 
-        logout();
+            logout(i);
 
-        login(userData[4][1], userData[5][1], userData[0][1]+" "+userData[1][1]);
+            login(i, userData[4][1], userData[5][1], userData[0][1] + " " + userData[1][1]);
 
-        logout();
+            logout(i);
+        }
     }
-
     @AfterTest
     public void stop() {
         driver.quit();
