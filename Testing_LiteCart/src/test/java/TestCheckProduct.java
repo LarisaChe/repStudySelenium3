@@ -22,37 +22,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
  */
 public class TestCheckProduct {
 
-    //private WebDriverWait wait;
-    //private WebDriver driver;
-   /* private WebDriver driverChrome;
-    private WebDriver driverIE;
-    private WebDriver driverFF;
-
-    private String[] driverTypes = {"Chrome", "IE", "FF"};
-    private String driverType = "Chrome";*/
-
-   /* @BeforeTest
-    public void start() {
-        //System.out.println(driverType);
-            /*switch (driverType) {
-                case "Chrome":
-                    driver = new ChromeDriver();
-                case "FF":
-                    driver = new FirefoxDriver();
-                case "IE":
-                    driver = new InternetExplorerDriver();
-            }*/
-
-       /*     driverChrome = new ChromeDriver();
-            driverFF = new FirefoxDriver();
-            driverIE = new InternetExplorerDriver();
-
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 10);
-
-//        System.out.println(driver.toString());
-    }*/
-
     float floatFontSize(String strFont) {
         String fontDop = strFont.substring(0, strFont.length() - 2);
         return parseFloat(fontDop);
@@ -121,27 +90,7 @@ public class TestCheckProduct {
     @Test
     public void testCheckProduct(WebDriver driver, WebDriverWait wait) {
 
-        /*for (String dt : driverTypes) {
-                   driverType = dt;
-            switch (driverType) {
-                case "Chrome":
-                    driver = driverChrome;
-                case "FF":
-                    driver = driverFF;
-                case "IE":
-                    driver = driverIE;
-            }
-                   System.out.println(driverType);*/
             System.out.println(driver.toString());
-
-            /*switch (driverType) {
-                case "Chrome":
-                    driver = new ChromeDriver();
-                case "FF":
-                    driver = new FirefoxDriver();
-                case "IE":
-                    driver = new InternetExplorerDriver();
-            }*/
 
             driver.get("http://localhost/litecart/public_html/en/");
 
@@ -169,11 +118,4 @@ public class TestCheckProduct {
                 System.out.println("Ни один товар не найден.");
             }
         }
-    //}
-
-    /*@AfterTest
-    public void stop() {
-        driver.quit();
-        driver = null;
-    }*/
 }
