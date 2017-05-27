@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
@@ -27,6 +28,49 @@ public class TestAddNewProduct {
         return (element.isDisplayed() && dopString.equals(alertString));
     }
 
+    void openSubCatalog (String catalogName) {
+
+        java.util.List<WebElement> listProducts = driverChrome.findElements(By.cssSelector("table.data-table tbody tr")); //.findElements(By.tagName("tr"));
+            for (WebElement product : listProducts) {
+                if (product.findElements(By.tagName("td")).get(2).findElement(By.tagName("a")).getText().equals(catalogName)) {
+                    product.findElements(By.tagName("td")).get(2).findElement(By.tagName("a")).click();
+                    break;
+                }
+            }
+    }
+
+    String deleteProductInCatalog(String productName) {
+
+        openSubCatalog("Rubber Ducks");
+
+        java.util.List<WebElement> listProducts = driverChrome.findElements(By.cssSelector("table.data-table tbody tr")); //.findElement(By.tagName("tr"));
+        int n =0;
+        for (WebElement product : listProducts) {
+            if (product.findElements(By.tagName("td")).get(2).findElement(By.tagName("a")).getText().equals(productName)) {
+                n++;
+                product.findElements(By.tagName("td")).get(0).click();
+            }
+        }
+        driverChrome.findElement(By.name("delete")).click();
+        return String.valueOf(n)+" продуктов "+productName+ " удалено из каталога";
+    }
+
+    boolean isProductInCatalog(String productName) {
+        wait.until(titleIs("Catalog | My Store"));
+        boolean result = false;
+
+        openSubCatalog("Rubber Ducks");
+
+        java.util.List<WebElement> listProducts = driverChrome.findElements(By.cssSelector("table.data-table tbody tr")); //.findElement(By.tagName("tr"));
+        for (WebElement product : listProducts) {
+            if (product.findElements(By.tagName("td")).get(2).findElement(By.tagName("a")).getText().equals(productName)) {
+                result=true;
+                break;
+            }
+        }
+    return result;
+    }
+
     @BeforeTest
     public void start() {
         driverChrome = new ChromeDriver();
@@ -41,20 +85,8 @@ public class TestAddNewProduct {
         driverChrome.findElement(By.name("username")).sendKeys("admin");
         driverChrome.findElement(By.name("password")).sendKeys("admin");
         driverChrome.findElement(By.xpath("//*[@id=\"box-login\"]/form/div[2]/button")).click();
+
         wait.until(titleIs("My Store"));
-
-        driverChrome.findElement(By.linkText("Catalog")).click();
-
-        driverChrome.findElement(By.cssSelector(".btn[href$='product']")).click();
-
-        WebElement element=driverChrome.findElement(By.cssSelector("label.btn.btn-default:nth-child(1)"));
-        element.click();
-
-        element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(2)"));
-        element.click();
-        element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(1)"));
-        element.findElement(By.cssSelector("[data-name='Root']")).click();
-
         String [][] productData = new String[8][2];
         productData[0][0] = "code";
         productData[0][1] = "rd007";
@@ -72,6 +104,24 @@ public class TestAddNewProduct {
         productData[6][1] = "10,00";
         productData[7][0] = "dim_z";
         productData[7][1] = "10,00";
+
+        driverChrome.findElement(By.linkText("Catalog")).click();
+
+        if (isProductInCatalog(productData[1][1])) {
+            System.out.println(productData[1][1]+" обнаружен в каталоге и должен быть удален");
+            //System.out.println(deleteProductInCatalog(productData[1][1]));
+        }
+        driverChrome.findElement(By.cssSelector(".btn[href$='product']")).click();
+
+        WebElement element=driverChrome.findElement(By.cssSelector("label.btn.btn-default:nth-child(1)"));
+        element.click();
+
+        element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(2)"));
+        if (element.getAttribute("checked")=="false") {
+            element.click();}
+        element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(1)"));
+        if (element.findElement(By.cssSelector("[data-name='Root']")).getAttribute("checked")=="true") {
+            element.findElement(By.cssSelector("[data-name='Root']")).click(); }
 
         element=driverChrome.findElement(By.id("tab-general"));
         for (int i = 0; i <= productData.length - 1; i++) {
@@ -127,9 +177,15 @@ public class TestAddNewProduct {
         element.click();
 
         if (alertCheck(driverChrome, "× Changes were successfully saved.")) {
-            System.out.println("Черный утёнок добавлен");
+            System.out.println(productData[1][1]+" добавлен");
         } else {
-            System.out.println("Не удалось добавить черного утёнка");
+            System.out.println("Не удалось добавить "+productData[1][1]);
+        }
+
+        if (isProductInCatalog(productData[1][1])) {
+            System.out.println(productData[1][1]+" есть в каталоге");
+        } else {
+            System.out.println(productData[1][1]+ " нет в каталоге");
         }
     }
 
