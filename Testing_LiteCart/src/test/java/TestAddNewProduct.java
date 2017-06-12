@@ -117,10 +117,10 @@ public class TestAddNewProduct {
         element.click();
 
         element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(2)"));
-        if (element.getAttribute("checked")=="false") {
+        if (element.getAttribute("checked").equals("false")) {
             element.click();}
         element=driverChrome.findElement(By.cssSelector(".form-control .checkbox:nth-child(1)"));
-        if (element.findElement(By.cssSelector("[data-name='Root']")).getAttribute("checked")=="true") {
+        if (element.findElement(By.cssSelector("[data-name='Root']")).getAttribute("checked").equals("true")) {
             element.findElement(By.cssSelector("[data-name='Root']")).click(); }
 
         element=driverChrome.findElement(By.id("tab-general"));
