@@ -44,20 +44,30 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/TestAddNewProduct.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestLogCatalog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestLogCatalog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/TestLogCatalog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="17">
               <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestCart.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/TestCart.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -392,11 +402,11 @@
         <option value="$PROJECT_DIR$/src/test/java/TestBrowsers.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestCheckProduct.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestLogin.java" />
-        <option value="$PROJECT_DIR$/src/test/java/TestCart.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestLinkOpen.java" />
         <option value="$PROJECT_DIR$/src/test/java/LogCatalog.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestLogCatalog.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestAddNewProduct.java" />
+        <option value="$PROJECT_DIR$/src/test/java/TestCart.java" />
       </list>
     </option>
   </component>
@@ -422,7 +432,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -458,10 +468,50 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Testing_LiteCart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Testing_LiteCart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Testing_LiteCart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Testing_LiteCart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -482,7 +532,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.TestLogCatalog">
+  <component name="RunManager" selected="TestNG.TestCart">
     <configuration default="false" name="TestAddNewProduct" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="Testing_LiteCart_test" />
@@ -845,11 +895,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="TestNG.TestLogCatalog" />
-        <item index="1" class="java.lang.String" itemvalue="TestNG.LogCatalog" />
-        <item index="2" class="java.lang.String" itemvalue="TestNG.TestAddNewProduct" />
-        <item index="3" class="java.lang.String" itemvalue="TestNG.TestLinkOpen" />
-        <item index="4" class="java.lang.String" itemvalue="TestNG.TestCart" />
+        <item index="0" class="java.lang.String" itemvalue="TestNG.TestCart" />
+        <item index="1" class="java.lang.String" itemvalue="TestNG.TestLogCatalog" />
+        <item index="2" class="java.lang.String" itemvalue="TestNG.LogCatalog" />
+        <item index="3" class="java.lang.String" itemvalue="TestNG.TestAddNewProduct" />
+        <item index="4" class="java.lang.String" itemvalue="TestNG.TestLinkOpen" />
       </list>
     </recent_temporary>
   </component>
@@ -867,35 +917,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="LogCatalog - 2017.06.25 at 13h 05m 41s.xml">
-      <configuration name="LogCatalog" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 11m 19s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 01h 11m 15s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 16m 27s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 19m 03s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 33m 25s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 21m 18s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 37m 10s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 23m 29s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 46m 14s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 32m 52s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 16h 50m 12s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 34m 43s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 17h 04m 51s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 12h 36m 20s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 17h 09m 10s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestAddNewProduct - 2017.06.25 at 13h 04m 13s.xml">
-      <configuration name="TestAddNewProduct" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 17h 10m 00s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TestLogCatalog - 2017.06.25 at 13h 06m 21s.xml">
-      <configuration name="TestLogCatalog" configurationId="TestNG" />
+    <history-entry file="TestCart - 2017.06.25 at 17h 10m 44s.xml">
+      <configuration name="TestCart" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -925,7 +975,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2579425" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26172465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1021,7 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1103,7 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="90" column="129" lean-forward="false" selection-start-line="90" selection-start-column="129" selection-end-line="90" selection-end-column="129" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,7 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="90" column="131" lean-forward="false" selection-start-line="90" selection-start-column="131" selection-end-line="90" selection-end-column="131" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1163,7 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1530">
           <caret line="90" column="131" lean-forward="false" selection-start-line="90" selection-start-column="131" selection-end-line="90" selection-end-column="131" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1287,9 +1333,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="54" column="0" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="54" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1297,7 +1340,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1308,21 +1350,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/TestCart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="43" column="15" lean-forward="true" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TestLogin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
           <caret line="146" column="10" lean-forward="true" selection-start-line="146" selection-start-column="10" selection-end-line="146" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1330,7 +1361,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
           <caret line="95" column="0" lean-forward="true" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1346,7 +1376,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="76" column="33" lean-forward="true" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1361,18 +1390,26 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/TestAddNewProduct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TestLogCatalog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="17">
           <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/TestCart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

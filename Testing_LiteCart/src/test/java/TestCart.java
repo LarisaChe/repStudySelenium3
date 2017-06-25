@@ -59,11 +59,11 @@ public class TestCart {
                 irn = rn.nextInt(productItems.size()-1); // % n;
                 driverChrome.findElements(By.cssSelector(".product .name")).get(irn).click();
 
-                wait.until(presenceOfElementLocated(By.id("view-full-page")));
+  /*              wait.until(presenceOfElementLocated(By.id("view-full-page")));
                 element = driverChrome.findElement(By.id("view-full-page"));
                 element.click();
                 wait.until(stalenessOf(element));
-
+*/
                 String selectorString;
                 if (driverChrome.findElements(By.name("options[Size]")).size()>0) {
                     String[] listOptions = {"Small","Medium","Large"};
@@ -81,7 +81,8 @@ public class TestCart {
                     iCart++;
                 }
 
-                driverChrome.findElement(By.cssSelector(".breadcrumb [href*='rubber-ducks']")).click();
+                //driverChrome.findElement(By.cssSelector(".breadcrumb [href*='rubber-ducks']")).click();
+                driverChrome.findElement(By.cssSelector(".list-horizontal [href*='rubber-ducks']")).click();
             } while(iCart<itemsInCart);
 
             System.out.println("Положили в корзину "+String.valueOf(iCart)+" шт.");
@@ -89,15 +90,20 @@ public class TestCart {
             //удаляем из корзины
             driverChrome.findElement(By.id("cart")).click();
 
-            int iSize=driverChrome.findElements(By.cssSelector("[name='remove_cart_item']")).size();
+//            int iSize=driverChrome.findElements(By.cssSelector("[name='remove_cart_item']")).size();
+           // int iSize=driverChrome.findElements(By.className("shortcut")).size();
+            int iSize=driverChrome.findElements(By.cssSelector("table.dataTable td.item")).size();
+            driverChrome.findElements(By.className("shortcut")).get(0).click();
 
             for (int i=1; i<=iSize; i++) {
                //driverChrome.findElement(By.cssSelector(".item input")).clear();
               // driverChrome.findElement(By.cssSelector(".item input")).sendKeys("0"+Keys.ENTER);
-                element = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".cart [name='remove_cart_item']")));
+
+                element = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".item [name='remove_cart_item']")));
                 element.click();
 
-                wait.until(numberOfElementsToBe(By.cssSelector(".cart [name='remove_cart_item']"), iSize-i));
+                //wait.until(numberOfElementsToBe(By.cssSelector(".item [name='remove_cart_item']"), iSize-i));
+                wait.until(numberOfElementsToBe(By.cssSelector("table.dataTable td.item"), iSize-i));
                  }
 
             if (iSize>4) {
@@ -105,7 +111,10 @@ public class TestCart {
             }
             else {System.out.println("Удалили из корзины "+String.valueOf(iSize)+" наименования");
             }
-            driverChrome.findElement(By.linkText("<< Back")).click();
+            element = wait.until(presenceOfElementLocated(By.linkText("<< Back")));
+            element.click();
+            //driverChrome.findElement(By.linkText("<< Back")).click();
+           // driverChrome.findElement(By.cssSelector("[title='Home']")).click();
 
         } else {
             System.out.println("Ни один товар не найден.");
